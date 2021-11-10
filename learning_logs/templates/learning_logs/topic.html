@@ -8,7 +8,8 @@
 {% block content %}
 
 	<p>
-		<a href="{% url 'learning_logs:new_entry' topic.id %}">Добавить новую запись</a>
+		<a href="{% url 'learning_logs:new_entry' topic.id %}">Добавить новую запись</a> |
+		<a href="{% url 'learning_logs:delete_topic' topic.id %}">Удалить тему</a>
 	</p>
 	
 	{% for entry in entries %}	
@@ -17,7 +18,10 @@
 				<h3>
 					{{ entry.date_added|date:'M d, Y H:i' }}
 					<small>
-						<a href="{% url 'learning_logs:edit_entry' entry.id %}">редактировать запись</a>
+						<a href="{% url 'learning_logs:edit_entry' entry.id %}">Редактировать запись</a> |
+					</small>
+					<small>
+						<a href="{% url 'learning_logs:delete_entry' entry.id %}">Удалить запись</a>
 					</small>
 				</h3>
 			</div>

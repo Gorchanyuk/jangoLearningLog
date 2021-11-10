@@ -77,11 +77,25 @@ def new_entry(request, topic_id):
     context = {'topic': topic, 'form': form}
     return render(request, 'learning_logs/new_entry.html', context)
 
+def delete_entry(request, entry_id):
+    entry = Entry.objects.get(id=entry_id)
+    topic = entry.topic
+    # Проверка того, что тема принадлежит текущему пользователю
+    check_topic_owner(request, topic)
+    entry.delete()
+    return HttpResponseRedirect(reverse('learning_logs:topic', args=[topic.id]))
+
+def delete_topic(request, topic_id):
+    topic = Topic.objects.get(pk=topic_id)
+    # Проверка того, что тема принадлежит текущему пользователю
+    check_topic_owner(request, topic)
+    topic.delete()
+    return HttpResponseRedirect(reverse('learning_logs:topics'))
 
 @login_required
 def edit_entry(request, entry_id):
     """Редактирует существующую запись"""
-    entry = get_object_or_404(Entry, id=topic_id)
+    entry = get_object_or_404(Entry, id=entry_id)
     topic = entry.topic
     # Проверка того, что тема принадлежит текущему пользователю
     check_topic_owner(request, topic)

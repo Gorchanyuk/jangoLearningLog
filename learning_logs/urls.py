@@ -20,6 +20,12 @@ urlpatterns = [
     # Страница для добавления новой записи
     path('new_entry/<int:topic_id>/', views.new_entry, name='new_entry'),
 
+    #удаление записи
+    path('delete_entry/<int:entry_id>/', views.delete_entry, name='delete_entry'),
+
+    #удаление темы
+    path('delete_topic/<int:topic_id>/', views.delete_topic, name='delete_topic'),
+
     # Страница для редактирования записей
     re_path(r'^edit_entry/(?P<entry_id>\d+)/$', views.edit_entry, name='edit_entry'),
 
